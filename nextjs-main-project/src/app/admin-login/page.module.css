@@ -1,0 +1,188 @@
+.adminLoginRoot {
+  --bg: var(--color-bg);
+  --surface: var(--color-bg-card);
+  --surface-hover: var(--color-bg-card-hover);
+  --border: var(--color-line);
+  --text-main: var(--color-text);
+  --text-muted: var(--color-text-secondary);
+  --brand: var(--color-brand);
+
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  background: radial-gradient(circle at 15% 10%, color-mix(in srgb, var(--brand) 14%, transparent), transparent 35%), var(--bg);
+  color: var(--text-main);
+  font-family: var(--font-ibm-plex-sans-thai), var(--font-ibm-plex-sans), sans-serif;
+}
+
+.shell {
+  width: min(1040px, 100%);
+  min-height: 560px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+}
+
+.panelInfo {
+  padding: 48px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.kicker {
+  margin: 0 0 8px;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--brand);
+}
+
+.title {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 300;
+}
+
+.desc {
+  margin: 12px 0 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  max-width: 440px;
+}
+
+.featureList {
+  margin-top: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--text-muted);
+  font-family: var(--font-ibm-plex-mono), monospace;
+  font-size: 0.82rem;
+}
+
+.featureList p {
+  margin: 0;
+  padding-left: 14px;
+  position: relative;
+}
+
+.featureList p::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand);
+}
+
+.panelForm {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.formTitle {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.formSub {
+  margin: 8px 0 0;
+  color: var(--text-muted);
+  font-size: 0.875rem;
+}
+
+.form {
+  margin-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.input {
+  height: 44px;
+  border: 1px solid var(--border);
+  background: var(--surface-hover);
+  color: var(--text-main);
+  padding: 0 12px;
+  font-size: 0.95rem;
+}
+
+.input:focus {
+  border-color: var(--brand);
+  outline: none;
+}
+
+.passwordWrap {
+  position: relative;
+}
+
+.toggleBtn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  border: none;
+  cursor: pointer;
+}
+
+.errorText {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #fa4d56;
+}
+
+.submitBtn {
+  margin-top: 8px;
+  height: 44px;
+  border: 1px solid var(--brand);
+  background: color-mix(in srgb, var(--brand) 14%, transparent);
+  color: var(--text-main);
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.submitBtn:hover {
+  background: color-mix(in srgb, var(--brand) 22%, transparent);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: 1fr;
+  }
+
+  .panelInfo {
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+}

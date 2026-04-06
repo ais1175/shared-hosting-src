@@ -1,0 +1,254 @@
+{
+  "root": [
+    {
+      "tx_id": "ef675821-5671-4912-a419-f1c1722a5307",
+      "username": "root",
+      "voucher_hash": "123445",
+      "amount_thb": 17.0,
+      "status": "success",
+      "error_code": null,
+      "message": "Voucher redeemed (mock mode)",
+      "created_at": "2026-03-08T05:58:48.689152+00:00"
+    },
+    {
+      "tx_id": "ac6f1c9d-efa5-487f-8b55-4e974bde977c",
+      "username": "root",
+      "voucher_hash": "435634534543",
+      "amount_thb": 35.0,
+      "status": "success",
+      "error_code": null,
+      "message": "Voucher redeemed (mock mode)",
+      "created_at": "2026-03-08T05:59:03.027301700+00:00"
+    },
+    {
+      "tx_id": "cbb292eb-f78c-4bc7-b35c-11562c9ed558",
+      "username": "root",
+      "voucher_hash": "232323",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "INVALID_API_RESPONSE",
+      "message": "Invalid API response: error decoding response body",
+      "created_at": "2026-03-08T07:24:25.246774700+00:00"
+    },
+    {
+      "tx_id": "713db172-d475-459e-83dd-74a68134f588",
+      "username": "root",
+      "voucher_hash": "3w45t4353edgdfgdsfd",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "INVALID_API_RESPONSE",
+      "message": "Invalid API response: error decoding response body",
+      "created_at": "2026-03-08T07:24:37.779282200+00:00"
+    },
+    {
+      "tx_id": "53af7d2e-3f25-452e-af10-7c00797b6b18",
+      "username": "root",
+      "voucher_hash": "3w45t4353edgdfgdsfd",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "INVALID_API_RESPONSE",
+      "message": "Invalid API response: error decoding response body",
+      "created_at": "2026-03-08T07:24:38.362897500+00:00"
+    },
+    {
+      "tx_id": "2cf96f48-f0b2-4f0f-884f-56e0602c4269",
+      "username": "root",
+      "voucher_hash": "3w45t4353edgdfgdsfd",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "INVALID_API_RESPONSE",
+      "message": "Invalid API response: error decoding response body",
+      "created_at": "2026-03-08T07:24:38.546550900+00:00"
+    },
+    {
+      "tx_id": "9e7d451c-ceea-49a6-b59b-aae841c07805",
+      "username": "root",
+      "voucher_hash": "32123232",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "INVALID_API_RESPONSE",
+      "message": "Invalid API response: error decoding response body",
+      "created_at": "2026-03-08T07:24:44.000149700+00:00"
+    },
+    {
+      "tx_id": "00f59cfa-47a3-438d-a3aa-2665067b0a53",
+      "username": "root",
+      "voucher_hash": "444",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "INVALID_API_RESPONSE",
+      "message": "Invalid API response: error decoding response body",
+      "created_at": "2026-03-08T07:29:37.766485400+00:00"
+    },
+    {
+      "tx_id": "4f9c7161-e5d8-4dfe-b9d5-4ec81d5df109",
+      "username": "root",
+      "voucher_hash": "slip:invalid",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_API_ERROR",
+      "message": "Slip API returned status 500",
+      "created_at": "2026-03-08T08:28:10.386925600+00:00"
+    },
+    {
+      "tx_id": "62b4cb90-600f-4570-b348-bc9ad56426a9",
+      "username": "root",
+      "voucher_hash": "slip:0460665o8k5ea79t9Pvg",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_NOT_TODAY_THAI",
+      "message": "Slip date is not today in Thai timezone",
+      "created_at": "2026-03-08T08:30:11.392626+00:00"
+    },
+    {
+      "tx_id": "da9e5f1f-326a-4cd3-b373-040152cb6301",
+      "username": "root",
+      "voucher_hash": "slip:invalid",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_API_ERROR",
+      "message": "Slip API returned status 502",
+      "created_at": "2026-03-08T08:30:22.802840900+00:00"
+    },
+    {
+      "tx_id": "6177a43d-0c8a-40f9-a83d-05689cd3e4e0",
+      "username": "root",
+      "voucher_hash": "slip:invalid",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_API_ERROR",
+      "message": "Slip API returned status 503",
+      "created_at": "2026-03-08T08:30:31.548356300+00:00"
+    },
+    {
+      "tx_id": "3de4b2d6-6a7b-4425-b136-a7f12fca526f",
+      "username": "root",
+      "voucher_hash": "slip:invalid",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_API_ERROR",
+      "message": "Slip API returned status 503",
+      "created_at": "2026-03-08T08:30:36.486323900+00:00"
+    },
+    {
+      "tx_id": "68b8544d-c3c2-474b-a2b4-61440a3cbb60",
+      "username": "root",
+      "voucher_hash": "slip:invalid",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_API_ERROR",
+      "message": "Slip API returned status 503",
+      "created_at": "2026-03-08T08:30:44.859081200+00:00"
+    },
+    {
+      "tx_id": "aa0f0455-4a62-4e51-9b7d-e061371dcc93",
+      "username": "root",
+      "voucher_hash": "slip:0460665o8k5ea79t9Pvg",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_NOT_TODAY_THAI",
+      "message": "Slip date is not today in Thai timezone",
+      "created_at": "2026-03-08T08:33:59.660336+00:00"
+    },
+    {
+      "tx_id": "6e252efe-8ba8-4628-a436-bc288db3dddf",
+      "username": "root",
+      "voucher_hash": "slip:0460665o8k5ea79t9Pvg",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_NOT_TODAY_THAI",
+      "message": "Slip date is not today in Thai timezone",
+      "created_at": "2026-03-08T08:34:02.773325100+00:00"
+    },
+    {
+      "tx_id": "a4d231a5-9783-4691-bc19-a6b14d98e8ff",
+      "username": "root",
+      "voucher_hash": "slip:0460665o8k5ea79t9Pvg",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_NOT_TODAY_THAI",
+      "message": "Slip date is not today in Thai timezone",
+      "created_at": "2026-03-08T08:54:59.125296600+00:00"
+    },
+    {
+      "tx_id": "a5a10b05-a978-4107-9610-5debbba1c576",
+      "username": "root",
+      "voucher_hash": "slip:016065182922CPP06185",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_RECEIVER_MISMATCH",
+      "message": "Slip receiver does not match configured account",
+      "created_at": "2026-03-08T08:55:19.419326300+00:00"
+    },
+    {
+      "tx_id": "08f499f4-c111-4d88-b953-aa5dc6b75638",
+      "username": "root",
+      "voucher_hash": "slip:016065182922CPP06185",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_RECEIVER_MISMATCH",
+      "message": "Slip receiver does not match configured account",
+      "created_at": "2026-03-08T08:55:53.647327600+00:00"
+    },
+    {
+      "tx_id": "714acc18-5da2-478d-81a8-279feba814ae",
+      "username": "root",
+      "voucher_hash": "slip:invalid",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_API_ERROR",
+      "message": "Slip API returned status 500",
+      "created_at": "2026-03-08T08:57:19.872786+00:00"
+    },
+    {
+      "tx_id": "5b7e1547-5bba-414d-93a7-f81f48ae0657",
+      "username": "root",
+      "voucher_hash": "slip:0460665o8k5ea79t9Pvg",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_NOT_TODAY_THAI",
+      "message": "Slip date is not today in Thai timezone",
+      "created_at": "2026-03-08T08:58:12.805940800+00:00"
+    },
+    {
+      "tx_id": "4a9b490d-c489-4c01-a72b-28eb9fff1b43",
+      "username": "root",
+      "voucher_hash": "slip:016065182922CPP06185",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_NOT_TODAY_THAI",
+      "message": "Slip date is not today in Thai timezone",
+      "created_at": "2026-03-08T08:58:25.687412600+00:00"
+    },
+    {
+      "tx_id": "2ca2894c-0e2f-4cf7-92e5-c55938a655f1",
+      "username": "root",
+      "voucher_hash": "slip:016065182922CPP06185",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_NOT_TODAY_THAI",
+      "message": "Slip date is not today in Thai timezone",
+      "created_at": "2026-03-08T09:01:09.502709500+00:00"
+    },
+    {
+      "tx_id": "8a5005d4-6492-45b0-baa7-5d054de78cc1",
+      "username": "root",
+      "voucher_hash": "slip:016065182922CPP06185",
+      "amount_thb": 0.0,
+      "status": "failed",
+      "error_code": "SLIP_NOT_TODAY_THAI",
+      "message": "Slip date is not today in Thai timezone",
+      "created_at": "2026-03-08T09:03:18.042357+00:00"
+    },
+    {
+      "tx_id": "df28d122-a175-46a0-93ba-7bb942faebf3",
+      "username": "root",
+      "voucher_hash": "order:Start:uffasas.com",
+      "amount_thb": -10.0,
+      "status": "success",
+      "error_code": null,
+      "message": "Hosting order: Start (uffasas.com)",
+      "created_at": "2026-03-10T07:30:54.127960500+00:00"
+    }
+  ]
+}

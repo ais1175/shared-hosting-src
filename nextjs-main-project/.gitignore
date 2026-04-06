@@ -1,0 +1,14 @@
+# Next.js
+/.next/
+/out/
+/build/
+node_modules/
+.env*.local
+.env.production
+.env
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.vercel
+*.tsbuildinfo
+next-env.d.ts

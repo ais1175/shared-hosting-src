@@ -1,0 +1,106 @@
+Start
+Disk Space
+200 MB
+
+Bandwidth
+unlimited MB
+
+Domains
+unlimited
+
+Databases
+unlimited
+
+Lite
+Disk Space
+500 MB
+
+Bandwidth
+unlimited MB
+
+Domains
+unlimited
+
+Databases
+unlimited
+
+Core
+Disk Space
+1000 MB
+
+Bandwidth
+unlimited MB
+
+Domains
+unlimited
+
+Databases
+unlimited
+
+Plus
+Disk Space
+2000 MB
+
+Bandwidth
+unlimited MB
+
+Domains
+unlimited
+
+Databases
+unlimited
+
+Prime
+Disk Space
+5000 MB
+
+Bandwidth
+unlimited MB
+
+Domains
+unlimited
+
+Databases
+unlimited
+
+Pro
+Disk Space
+10000 MB
+
+Bandwidth
+unlimited MB
+
+Domains
+unlimited
+
+Databases
+unlimited
+
+Max
+Disk Space
+15000 MB
+
+Bandwidth
+unlimited MB
+
+Domains
+unlimited
+
+Databases
+unlimited
+
+Apex
+Disk Space
+20000 MB
+
+Bandwidth
+unlimited MB
+
+Domains
+unlimited
+
+Databases
+unlimited
+
+
+ราคา hosting ตามนี้

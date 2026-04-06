@@ -1,0 +1,31 @@
+{
+  "message": "Slip processed successfully.",
+  "data": {
+    "ref": "0460665o8k5ea79t9Pvg",
+    "date": "2026-03-07T13:50:00.000Z",
+    "sender_bank": "004",
+    "sender_name": "MASTER MATHAKAN T",
+    "sender_id": "xxx-x-x6730-x",
+    "receiver_bank": "004",
+    "receiver_name": "MASTER MATHAKAN TONGEAM",
+    "receiver_id": "xxx-x-x8407-x",
+    "reference_1": "500.00 THB",
+    "reference_2": "THAILAND",
+    "reference_3": "",
+    "amount": 500,
+    "sender_bank_details": {
+      "code": "004",
+      "name": "Kasikorn Bank",
+      "official_name": "KASIKORNBANK PUBLIC COMPANY LTD.",
+      "swift_code": "KASITHBK",
+      "color": "#138f2d"
+    },
+    "receiver_bank_details": {
+      "code": "004",
+      "name": "Kasikorn Bank",
+      "official_name": "KASIKORNBANK PUBLIC COMPANY LTD.",
+      "swift_code": "KASITHBK",
+      "color": "#138f2d"
+    }
+  }
+}

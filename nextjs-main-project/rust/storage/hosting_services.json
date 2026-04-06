@@ -1,0 +1,20 @@
+{
+  "root": [
+    {
+      "domain": "uffasas.com",
+      "package_name": "Start",
+      "created_at": "2026-03-10T07:30:54.127960500+00:00",
+      "status": "active",
+      "expires_at": "2026-04-10T07:30:54.127960500+00:00",
+      "grace_until": "2026-04-11T07:30:54.127960500+00:00",
+      "suspended_at": null,
+      "billing_price_thb": 10.0,
+      "notified_d1_at": null,
+      "notified_expired_at": null,
+      "notified_grace_end_at": null,
+      "da_username": null,
+      "da_password": null,
+      "da_panel_url": "https://dcadmin.reverz.in.th/"
+    }
+  ]
+}

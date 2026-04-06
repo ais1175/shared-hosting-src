@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Carbon Hosting - Database Cluster</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "cds-background": "#161616",
+                        "cds-layer-01": "#262626",
+                        "cds-layer-hover": "#393939",
+                        "cds-border-subtle": "#525252",
+                        "cds-text-primary": "#F4F4F4",
+                        "cds-text-secondary": "#C6C6C6",
+                        "cds-interactive-01": "#0F62FE",
+                        "cds-support-success": "#42BE65",
+                        "cds-support-warning": "#F1C21B",
+                        "cds-support-error": "#FA4D56",
+                    },
+                    fontFamily: {
+                        "sans": ['IBM Plex Sans', 'sans-serif'],
+                        "mono": ['IBM Plex Mono', 'monospace'],
+                    },
+                    borderRadius: {
+                        "none": "0px",
+                        "sm": "2px", 
+                    },
+                    spacing: {
+                        "layout-xs": "8px",
+                        "layout-sm": "16px",
+                        "layout-md": "24px",
+                        "layout-lg": "32px",
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Carbon-like scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+            background-color: #161616;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #393939;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: #525252;
+        }
+
+        /* Animated stripes for syncing state */
+        .sync-stripes {
+            background-image: linear-gradient(
+                45deg,
+                rgba(255, 255, 255, 0.15) 25%,
+                transparent 25%,
+                transparent 50%,
+                rgba(255, 255, 255, 0.15) 50%,
+                rgba(255, 255, 255, 0.15) 75%,
+                transparent 75%,
+                transparent
+            );
+            background-size: 1rem 1rem;
+            animation: move-stripes 1s linear infinite;
+        }
+
+        @keyframes move-stripes {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 1rem 0;
+            }
+        }
+    </style>
+</head>
+<body class="bg-cds-background text-cds-text-primary font-sans antialiased min-h-screen flex flex-col overflow-hidden">
+<!-- Top Navigation -->
+<header class="h-12 bg-cds-background border-b border-cds-border-subtle flex items-center justify-between px-4 fixed w-full top-0 z-50">
+<div class="flex items-center gap-4">
+<button class="text-white hover:bg-cds-layer-hover p-1">
+<span class="material-symbols-outlined text-[20px]">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<span class="font-semibold text-[14px] tracking-wide">CARBON</span>
+<span class="font-light text-[14px]">HOSTING</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-white hover:bg-cds-layer-hover p-2 relative">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1.5 right-1.5 w-2 h-2 bg-cds-interactive-01 rounded-full"></span>
+</button>
+<div class="w-8 h-8 bg-cds-layer-01 flex items-center justify-center text-xs font-mono font-bold border border-transparent hover:border-white cursor-pointer">
+                AD
+            </div>
+</div>
+</header>
+<div class="flex flex-1 pt-12 h-screen">
+<!-- Side Navigation -->
+<aside class="w-16 lg:w-64 bg-cds-layer-01 flex-shrink-0 flex flex-col border-r border-cds-border-subtle h-full overflow-y-auto">
+<nav class="flex flex-col mt-4">
+<a class="flex items-center h-12 px-4 text-cds-text-secondary hover:bg-cds-layer-hover hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px]">dashboard</span>
+<span class="ml-3 text-sm font-medium hidden lg:block">Overview</span>
+</a>
+<a class="flex items-center h-12 px-4 text-cds-text-secondary hover:bg-cds-layer-hover hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px]">dns</span>
+<span class="ml-3 text-sm font-medium hidden lg:block">Instances</span>
+</a>
+<a class="flex items-center h-12 px-4 text-cds-text-secondary hover:bg-cds-layer-hover hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px]">language</span>
+<span class="ml-3 text-sm font-medium hidden lg:block">Domains</span>
+</a>
+<a class="flex items-center h-12 px-4 bg-cds-layer-hover text-white border-l-4 border-cds-interactive-01 transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px] -ml-1">database</span>
+<span class="ml-3 text-sm font-medium hidden lg:block">Databases</span>
+</a>
+<a class="flex items-center h-12 px-4 text-cds-text-secondary hover:bg-cds-layer-hover hover:text-white transition-colors group" href="#">
+<span class="material-symbols-outlined text-[20px]">folder</span>
+<span class="ml-3 text-sm font-medium hidden lg:block">Files</span>
+</a>
+<a class="flex items-center h-12 px-4 text-cds-text-secondary hover:bg-cds-layer-hover hover:text-white transition-colors group mt-8 border-t border-cds-border-subtle pt-4" href="#">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="ml-3 text-sm font-medium hidden lg:block">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 bg-cds-background overflow-y-auto p-4 lg:p-8">
+<div class="max-w-[1600px] mx-auto">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4 border-b border-cds-border-subtle pb-6">
+<div>
+<div class="flex items-center gap-2 text-cds-text-secondary text-sm mb-2 font-mono">
+<span>root</span>
+<span>/</span>
+<span>clusters</span>
+</div>
+<h1 class="text-3xl font-light text-cds-text-primary">Database Clusters</h1>
+</div>
+<div class="flex gap-4 w-full md:w-auto">
+<div class="relative flex-1 md:w-64">
+<input class="w-full bg-cds-layer-01 border border-cds-border-subtle text-cds-text-primary text-sm p-3 focus:outline-none focus:ring-2 focus:ring-white placeholder-cds-text-secondary font-sans h-10" placeholder="Filter databases..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-cds-text-secondary text-[20px]">search</span>
+</div>
+<button class="bg-cds-interactive-01 hover:bg-blue-600 text-white text-sm font-medium px-4 h-10 flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="hidden sm:inline">Provision Database</span>
+</button>
+</div>
+</div>
+<!-- Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
+<!-- Ghost Card (Create Action) -->
+<div class="group h-64 border border-dashed border-cds-border-subtle hover:border-cds-text-primary bg-transparent flex flex-col items-center justify-center cursor-pointer transition-colors p-6">
+<div class="w-12 h-12 border border-cds-interactive-01 text-cds-interactive-01 group-hover:bg-cds-interactive-01 group-hover:text-white flex items-center justify-center transition-colors mb-4 rounded-none">
+<span class="material-symbols-outlined text-[32px]">add</span>
+</div>
+<span class="text-cds-interactive-01 group-hover:text-white font-medium text-sm">Provision New Cluster</span>
+<span class="text-cds-text-secondary text-xs mt-2 text-center">SQL, NoSQL, and In-Memory caches available</span>
+</div>
+<!-- Active Card: Postgres -->
+<div class="bg-cds-layer-01 border border-transparent hover:border-cds-border-subtle p-0 flex flex-col h-64 transition-colors group relative">
+<!-- Card Header -->
+<div class="p-4 flex items-start justify-between">
+<div>
+<h3 class="font-semibold text-cds-text-primary mb-1">prod_users_v2</h3>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-cds-support-success"></span>
+<span class="text-xs text-cds-text-secondary font-mono uppercase">PostgreSQL 14</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-cds-text-secondary" title="PostgreSQL">storage</span>
+</div>
+<!-- Card Body -->
+<div class="flex-1 px-4 flex flex-col justify-center gap-4">
+<!-- Connection String -->
+<div>
+<label class="text-xs text-cds-text-secondary uppercase font-semibold tracking-wider block mb-2">Connection String</label>
+<div class="bg-cds-background border border-cds-border-subtle p-2 flex items-center justify-between h-10 group/input">
+<code class="text-xs text-cds-text-primary font-mono truncate mr-2 select-all">postgres://admin:•••••••</code>
+<button class="text-cds-interactive-01 hover:text-white transition-colors" title="Reveal">
+<span class="material-symbols-outlined text-[16px]">visibility</span>
+</button>
+</div>
+</div>
+<!-- Usage Bar -->
+<div>
+<div class="flex justify-between text-xs font-mono mb-1">
+<span class="text-cds-text-secondary">Storage</span>
+<span class="text-cds-text-primary">45%</span>
+</div>
+<div class="w-full bg-cds-background h-1">
+<div class="bg-cds-interactive-01 h-1" style="width: 45%"></div>
+</div>
+<div class="text-[10px] text-cds-text-secondary font-mono mt-1 text-right">22.5 GB / 50 GB</div>
+</div>
+</div>
+<!-- Card Footer -->
+<div class="mt-auto border-t border-cds-border-subtle flex divide-x divide-cds-border-subtle h-12">
+<button class="flex-1 hover:bg-cds-layer-hover text-cds-text-primary text-xs font-medium transition-colors">Manage</button>
+<button class="flex-1 hover:bg-cds-layer-hover text-cds-text-primary text-xs font-medium transition-colors">Backups</button>
+<button class="flex-1 hover:bg-cds-support-error hover:text-white text-cds-text-primary text-xs font-medium transition-colors group-hover/delete">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Syncing Card: Redis -->
+<div class="bg-cds-layer-01 border border-transparent hover:border-cds-border-subtle p-0 flex flex-col h-64 transition-colors group relative">
+<!-- Card Header -->
+<div class="p-4 flex items-start justify-between">
+<div>
+<h3 class="font-semibold text-cds-text-primary mb-1">cache_cluster_01</h3>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-cds-interactive-01 animate-pulse"></span>
+<span class="text-xs text-cds-text-secondary font-mono uppercase">Redis 6.2 (Syncing)</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-cds-text-secondary" title="Redis">memory</span>
+</div>
+<!-- Card Body -->
+<div class="flex-1 px-4 flex flex-col justify-center gap-4">
+<!-- Connection String -->
+<div>
+<label class="text-xs text-cds-text-secondary uppercase font-semibold tracking-wider block mb-2">Connection String</label>
+<div class="bg-cds-background border border-cds-border-subtle p-2 flex items-center justify-between h-10 opacity-50 cursor-not-allowed">
+<code class="text-xs text-cds-text-primary font-mono truncate mr-2">redis://cache:••••••••</code>
+<span class="material-symbols-outlined text-[16px] text-cds-text-secondary">lock</span>
+</div>
+</div>
+<!-- Usage Bar -->
+<div>
+<div class="flex justify-between text-xs font-mono mb-1">
+<span class="text-cds-text-secondary">Memory</span>
+<span class="text-cds-interactive-01">Syncing...</span>
+</div>
+<div class="w-full bg-cds-background h-1 overflow-hidden">
+<div class="bg-cds-interactive-01 h-1 w-full sync-stripes"></div>
+</div>
+<div class="text-[10px] text-cds-text-secondary font-mono mt-1 text-right">Calculating...</div>
+</div>
+</div>
+<!-- Card Footer -->
+<div class="mt-auto border-t border-cds-border-subtle flex divide-x divide-cds-border-subtle h-12">
+<button class="flex-1 hover:bg-cds-layer-hover text-cds-text-primary text-xs font-medium transition-colors">Logs</button>
+<button class="flex-1 hover:bg-cds-layer-hover text-cds-text-primary text-xs font-medium transition-colors" disabled="">Settings</button>
+</div>
+</div>
+<!-- Locked Card: MySQL (Archived) -->
+<div class="bg-cds-layer-01 border border-transparent hover:border-cds-border-subtle p-0 flex flex-col h-64 transition-colors group relative overflow-hidden">
+<!-- Locked Overlay -->
+<div class="absolute inset-0 bg-[#000000]/70 z-10 flex flex-col items-center justify-center backdrop-blur-[1px] border border-cds-border-subtle">
+<span class="material-symbols-outlined text-[32px] text-cds-text-secondary mb-2">lock</span>
+<span class="text-cds-text-primary text-sm font-medium">Archived Instance</span>
+<button class="mt-4 px-4 py-2 bg-cds-layer-hover hover:bg-cds-border-subtle text-xs text-white border border-cds-border-subtle font-mono">UNLOCK_ARCHIVE</button>
+</div>
+<!-- Card Header -->
+<div class="p-4 flex items-start justify-between opacity-40">
+<div>
+<h3 class="font-semibold text-cds-text-primary mb-1">legacy_archived</h3>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-cds-text-secondary"></span>
+<span class="text-xs text-cds-text-secondary font-mono uppercase">MySQL 8.0</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-cds-text-secondary" title="MySQL">table_view</span>
+</div>
+<!-- Card Body -->
+<div class="flex-1 px-4 flex flex-col justify-center gap-4 opacity-40">
+<div>
+<label class="text-xs text-cds-text-secondary uppercase font-semibold tracking-wider block mb-2">Connection String</label>
+<div class="bg-cds-background border border-cds-border-subtle p-2 flex items-center justify-between h-10">
+<code class="text-xs text-cds-text-primary font-mono truncate mr-2">mysql://ro_user:••••••</code>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-xs font-mono mb-1">
+<span class="text-cds-text-secondary">Storage</span>
+<span class="text-cds-support-warning">99%</span>
+</div>
+<div class="w-full bg-cds-background h-1">
+<div class="bg-cds-support-warning h-1" style="width: 99%"></div>
+</div>
+<div class="text-[10px] text-cds-text-secondary font-mono mt-1 text-right">499 GB / 500 GB</div>
+</div>
+</div>
+<!-- Card Footer -->
+<div class="mt-auto border-t border-cds-border-subtle flex divide-x divide-cds-border-subtle h-12 opacity-40">
+<button class="flex-1 text-cds-text-primary text-xs font-medium cursor-not-allowed">Manage</button>
+<button class="flex-1 text-cds-text-primary text-xs font-medium cursor-not-allowed">Delete</button>
+</div>
+</div>
+<!-- Active Card: MongoDB -->
+<div class="bg-cds-layer-01 border border-transparent hover:border-cds-border-subtle p-0 flex flex-col h-64 transition-colors group relative">
+<!-- Card Header -->
+<div class="p-4 flex items-start justify-between">
+<div>
+<h3 class="font-semibold text-cds-text-primary mb-1">analytics_store</h3>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-cds-support-success"></span>
+<span class="text-xs text-cds-text-secondary font-mono uppercase">MongoDB 5.0</span>
+</div>
+</div>
+<span class="material-symbols-outlined text-cds-text-secondary" title="MongoDB">dataset</span>
+</div>
+<!-- Card Body -->
+<div class="flex-1 px-4 flex flex-col justify-center gap-4">
+<!-- Connection String -->
+<div>
+<label class="text-xs text-cds-text-secondary uppercase font-semibold tracking-wider block mb-2">Connection String</label>
+<div class="bg-cds-background border border-cds-border-subtle p-2 flex items-center justify-between h-10 group/input">
+<code class="text-xs text-cds-text-primary font-mono truncate mr-2 select-all">mongodb://read:•••••••</code>
+<button class="text-cds-interactive-01 hover:text-white transition-colors" title="Reveal">
+<span class="material-symbols-outlined text-[16px]">visibility_off</span>
+</button>
+</div>
+</div>
+<!-- Usage Bar -->
+<div>
+<div class="flex justify-between text-xs font-mono mb-1">
+<span class="text-cds-text-secondary">Storage</span>
+<span class="text-cds-text-primary">12%</span>
+</div>
+<div class="w-full bg-cds-background h-1">
+<div class="bg-cds-interactive-01 h-1" style="width: 12%"></div>
+</div>
+<div class="text-[10px] text-cds-text-secondary font-mono mt-1 text-right">120 GB / 1 TB</div>
+</div>
+</div>
+<!-- Card Footer -->
+<div class="mt-auto border-t border-cds-border-subtle flex divide-x divide-cds-border-subtle h-12">
+<button class="flex-1 hover:bg-cds-layer-hover text-cds-text-primary text-xs font-medium transition-colors">Manage</button>
+<button class="flex-1 hover:bg-cds-layer-hover text-cds-text-primary text-xs font-medium transition-colors">Backups</button>
+<button class="flex-1 hover:bg-cds-support-error hover:text-white text-cds-text-primary text-xs font-medium transition-colors group-hover/delete">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Pagination / Table Footer Mockup -->
+<div class="flex justify-between items-center mt-8 border-t border-cds-border-subtle pt-4 text-xs text-cds-text-secondary font-mono">
+<div>Showing 1-4 of 12 clusters</div>
+<div class="flex gap-2">
+<button class="px-2 py-1 bg-cds-layer-01 border border-cds-border-subtle hover:text-white disabled:opacity-50">PREV</button>
+<button class="px-2 py-1 bg-cds-layer-01 border border-cds-border-subtle hover:text-white text-white">1</button>
+<button class="px-2 py-1 bg-cds-layer-01 border border-cds-border-subtle hover:text-white">2</button>
+<button class="px-2 py-1 bg-cds-layer-01 border border-cds-border-subtle hover:text-white">3</button>
+<button class="px-2 py-1 bg-cds-layer-01 border border-cds-border-subtle hover:text-white">NEXT</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

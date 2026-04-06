@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>File Explorer - Carbon Enterprise Hosting</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=IBM+Plex+Mono:wght@400;600&amp;family=IBM+Plex+Sans:wght@300;400;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0F62FE", // Carbon Blue 60
+                        "background-light": "#f5f6f8", 
+                        "background-dark": "#161616", // Carbon Gray 100
+                        "surface": "#262626", // Carbon Gray 90
+                        "surface-hover": "#393939", // Carbon Gray 80
+                        "border-subtle": "#525252", // Carbon Gray 60
+                        "text-primary": "#F4F4F4", // Carbon Gray 10
+                        "text-secondary": "#C6C6C6", // Carbon Gray 30
+                        "accent-success": "#42BE65",
+                        "accent-warning": "#F1C21B",
+                        "accent-danger": "#FA4D56",
+                    },
+                    fontFamily: {
+                        "display": ['"IBM Plex Sans"', "sans-serif"],
+                        "mono": ['"IBM Plex Mono"', "monospace"],
+                        "sans": ['"IBM Plex Sans"', "sans-serif"],
+                    },
+                    borderRadius: {
+                        "none": "0px",
+                        "DEFAULT": "0px",
+                        "sm": "0px",
+                        "md": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "2xl": "0px",
+                        "full": "0px", // Enforcing sharp edges per Carbon Design System
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Scrollbar for that terminal feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #262626; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #525252; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6f6f6f; 
+        }
+        /* Grid background pattern */
+        .bg-grid-pattern {
+            background-image: linear-gradient(#262626 1px, transparent 1px),
+            linear-gradient(90deg, #262626 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body class="bg-background-dark text-text-primary font-display h-screen overflow-hidden flex flex-col antialiased selection:bg-primary selection:text-white">
+<!-- Header -->
+<header class="h-12 bg-background-dark border-b border-border-subtle flex items-center justify-between px-4 shrink-0 z-20 relative">
+<div class="flex items-center gap-4">
+<button class="text-white hover:bg-surface-hover p-1">
+<span class="material-symbols-outlined text-[20px]">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<div class="size-4 text-white">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path clip-rule="evenodd" d="M39.475 21.6262C40.358 21.4363 40.6863 21.5589 40.7581 21.5934C40.7876 21.655 40.8547 21.857 40.8082 22.3336C40.7408 23.0255 40.4502 24.0046 39.8572 25.2301C38.6799 27.6631 36.5085 30.6631 33.5858 33.5858C30.6631 36.5085 27.6632 38.6799 25.2301 39.8572C24.0046 40.4502 23.0255 40.7407 22.3336 40.8082C21.8571 40.8547 21.6551 40.7875 21.5934 40.7581C21.5589 40.6863 21.4363 40.358 21.6262 39.475C21.8562 38.4054 22.4689 36.9657 23.5038 35.2817C24.7575 33.2417 26.5497 30.9744 28.7621 28.762C30.9744 26.5497 33.2417 24.7574 35.2817 23.5037C36.9657 22.4689 38.4054 21.8562 39.475 21.6262ZM4.41189 29.2403L18.7597 43.5881C19.8813 44.7097 21.4027 44.9179 22.7217 44.7893C24.0585 44.659 25.5148 44.1631 26.9723 43.4579C29.9052 42.0387 33.2618 39.5667 36.4142 36.4142C39.5667 33.2618 42.0387 29.9052 43.4579 26.9723C44.1631 25.5148 44.659 24.0585 44.7893 22.7217C44.9179 21.4027 44.7097 19.8813 43.5881 18.7597L29.2403 4.41187C27.8527 3.02428 25.8765 3.02573 24.2861 3.36776C22.6081 3.72863 20.7334 4.58419 18.8396 5.74801C16.4978 7.18716 13.9881 9.18353 11.5858 11.5858C9.18354 13.988 7.18717 16.4978 5.74802 18.8396C4.58421 20.7334 3.72865 22.6081 3.36778 24.2861C3.02574 25.8765 3.02429 27.8527 4.41189 29.2403Z" fill="currentColor" fill-rule="evenodd"></path>
+</svg>
+</div>
+<h1 class="text-sm font-semibold tracking-tight uppercase">Carbon Enterprise</h1>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-text-secondary hover:text-white relative">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-0 right-0 block size-2 bg-accent-danger rounded-full ring-2 ring-background-dark"></span>
+</button>
+<div class="size-8 bg-surface-hover flex items-center justify-center text-xs font-mono font-bold text-white border border-border-subtle cursor-pointer">
+                JS
+            </div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 bg-surface flex flex-col border-r border-border-subtle shrink-0">
+<nav class="flex flex-col flex-1 py-4">
+<a class="flex items-center gap-3 px-4 py-3 text-text-secondary hover:bg-surface-hover hover:text-white group border-l-4 border-transparent transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-white">dashboard</span>
+<span class="text-sm font-medium">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-text-secondary hover:bg-surface-hover hover:text-white group border-l-4 border-transparent transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-white">dns</span>
+<span class="text-sm font-medium">Instances</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-text-secondary hover:bg-surface-hover hover:text-white group border-l-4 border-transparent transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-white">language</span>
+<span class="text-sm font-medium">Domains</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-text-secondary hover:bg-surface-hover hover:text-white group border-l-4 border-transparent transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-white">database</span>
+<span class="text-sm font-medium">Databases</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-white bg-surface-hover border-l-4 border-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-[20px] text-white">folder</span>
+<span class="text-sm font-medium">Files</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-text-secondary hover:bg-surface-hover hover:text-white group border-l-4 border-transparent transition-colors mt-auto border-t border-border-subtle" href="#">
+<span class="material-symbols-outlined text-[20px] group-hover:text-white">settings</span>
+<span class="text-sm font-medium">Settings</span>
+</a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col bg-background-dark min-w-0 relative">
+<!-- Breadcrumbs / Top Bar -->
+<div class="h-12 border-b border-border-subtle flex items-center px-4 bg-background-dark shrink-0">
+<div class="flex items-center text-sm font-mono gap-2">
+<a class="text-primary hover:underline hover:text-blue-400" href="#">root</a>
+<span class="text-text-secondary">/</span>
+<a class="text-primary hover:underline hover:text-blue-400" href="#">var</a>
+<span class="text-text-secondary">/</span>
+<a class="text-primary hover:underline hover:text-blue-400" href="#">www</a>
+<span class="text-text-secondary">/</span>
+<span class="text-text-primary font-semibold">html</span>
+</div>
+<div class="ml-auto flex items-center gap-2">
+<button class="h-8 px-3 text-sm font-medium text-white bg-surface hover:bg-surface-hover border border-border-subtle flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">upload</span>
+                        Upload
+                    </button>
+<button class="h-8 px-3 text-sm font-medium text-white bg-surface hover:bg-surface-hover border border-border-subtle flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">create_new_folder</span>
+                        New Folder
+                    </button>
+<button class="h-8 w-8 flex items-center justify-center text-text-secondary hover:text-white hover:bg-surface-hover border border-transparent">
+<span class="material-symbols-outlined text-[20px]">refresh</span>
+</button>
+</div>
+</div>
+<!-- Split View Container -->
+<div class="flex flex-1 overflow-hidden">
+<!-- Left Panel: Directory Tree -->
+<div class="w-72 border-r border-border-subtle bg-background-dark flex flex-col overflow-y-auto shrink-0">
+<div class="p-2">
+<!-- Tree Items -->
+<div class="flex flex-col gap-0.5 text-sm font-mono">
+<div class="flex items-center gap-1 p-1 hover:bg-surface-hover cursor-pointer text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">arrow_right</span>
+<span class="material-symbols-outlined text-[18px] text-primary">folder</span>
+<span>bin</span>
+</div>
+<div class="flex items-center gap-1 p-1 hover:bg-surface-hover cursor-pointer text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">arrow_right</span>
+<span class="material-symbols-outlined text-[18px] text-primary">folder</span>
+<span>etc</span>
+</div>
+<div class="flex items-center gap-1 p-1 hover:bg-surface-hover cursor-pointer text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">arrow_right</span>
+<span class="material-symbols-outlined text-[18px] text-primary">folder</span>
+<span>home</span>
+</div>
+<!-- Expanded Group -->
+<div>
+<div class="flex items-center gap-1 p-1 hover:bg-surface-hover cursor-pointer text-white bg-surface">
+<span class="material-symbols-outlined text-[16px] rotate-90">arrow_right</span>
+<span class="material-symbols-outlined text-[18px] text-primary">folder_open</span>
+<span>var</span>
+</div>
+<div class="pl-4 flex flex-col gap-0.5 border-l border-border-subtle ml-2.5 mt-0.5">
+<div class="flex items-center gap-1 p-1 hover:bg-surface-hover cursor-pointer text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">arrow_right</span>
+<span class="material-symbols-outlined text-[18px] text-primary">folder</span>
+<span>cache</span>
+</div>
+<div class="flex items-center gap-1 p-1 hover:bg-surface-hover cursor-pointer text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">arrow_right</span>
+<span class="material-symbols-outlined text-[18px] text-primary">folder</span>
+<span>log</span>
+</div>
+<div>
+<div class="flex items-center gap-1 p-1 hover:bg-surface-hover cursor-pointer text-white bg-surface-hover">
+<span class="material-symbols-outlined text-[16px] rotate-90">arrow_right</span>
+<span class="material-symbols-outlined text-[18px] text-primary">folder_open</span>
+<span>www</span>
+</div>
+<div class="pl-4 flex flex-col gap-0.5 border-l border-border-subtle ml-2.5 mt-0.5">
+<div class="flex items-center gap-1 p-1 bg-primary/20 text-white cursor-pointer border-l-2 border-primary -ml-[18px] pl-[16px]">
+<span class="material-symbols-outlined text-[18px] text-primary">folder</span>
+<span>html</span>
+</div>
+<div class="flex items-center gap-1 p-1 hover:bg-surface-hover cursor-pointer text-text-secondary">
+<span class="material-symbols-outlined text-[18px] text-primary">folder</span>
+<span>cgi-bin</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-1 p-1 hover:bg-surface-hover cursor-pointer text-text-secondary">
+<span class="material-symbols-outlined text-[16px]">arrow_right</span>
+<span class="material-symbols-outlined text-[18px] text-primary">folder</span>
+<span>usr</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Panel: File List -->
+<div class="flex-1 flex flex-col bg-background-dark overflow-hidden relative">
+<!-- Table Header -->
+<div class="flex items-center border-b border-border-subtle bg-surface text-text-secondary text-xs font-semibold uppercase tracking-wider h-10 px-4 shrink-0">
+<div class="w-8 shrink-0">
+<input class="h-4 w-4 bg-transparent border-text-secondary text-primary focus:ring-0 focus:ring-offset-0 rounded-none cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex-1 min-w-[200px]">Name</div>
+<div class="w-32 text-left">Permissions</div>
+<div class="w-24 text-left">Owner</div>
+<div class="w-32 text-left">Date Modified</div>
+<div class="w-24 text-right">Size</div>
+<div class="w-8"></div>
+</div>
+<!-- Table Body -->
+<div class="flex-1 overflow-y-auto">
+<!-- Row: Folder -->
+<div class="flex items-center border-b border-border-subtle hover:bg-surface-hover h-12 px-4 group cursor-pointer transition-colors">
+<div class="w-8 shrink-0">
+<input class="h-4 w-4 bg-transparent border-text-secondary text-primary focus:ring-0 focus:ring-offset-0 rounded-none cursor-pointer opacity-0 group-hover:opacity-100" type="checkbox"/>
+</div>
+<div class="flex-1 min-w-[200px] flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">folder</span>
+<span class="text-sm font-medium text-white">assets</span>
+</div>
+<div class="w-32 text-xs font-mono text-text-secondary">drwxr-xr-x</div>
+<div class="w-24 text-xs font-mono text-text-secondary">root</div>
+<div class="w-32 text-xs font-mono text-text-secondary">Oct 24 10:30</div>
+<div class="w-24 text-right text-xs font-mono text-text-secondary">4.0 KB</div>
+<div class="w-8 flex justify-center">
+<button class="text-text-secondary hover:text-white opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Row: File -->
+<div class="flex items-center border-b border-border-subtle hover:bg-surface-hover h-12 px-4 group cursor-pointer transition-colors">
+<div class="w-8 shrink-0">
+<input class="h-4 w-4 bg-transparent border-text-secondary text-primary focus:ring-0 focus:ring-offset-0 rounded-none cursor-pointer opacity-0 group-hover:opacity-100" type="checkbox"/>
+</div>
+<div class="flex-1 min-w-[200px] flex items-center gap-3">
+<span class="material-symbols-outlined text-text-secondary">description</span>
+<span class="text-sm font-medium text-white">index.html</span>
+</div>
+<div class="w-32 text-xs font-mono text-text-secondary">-rw-r--r--</div>
+<div class="w-24 text-xs font-mono text-text-secondary">www-data</div>
+<div class="w-32 text-xs font-mono text-text-secondary">Nov 02 09:15</div>
+<div class="w-24 text-right text-xs font-mono text-text-secondary">14.2 KB</div>
+<div class="w-8 flex justify-center">
+<button class="text-text-secondary hover:text-white opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Row: File (Active State) -->
+<div class="flex items-center border-b border-border-subtle bg-surface-hover h-12 px-4 group cursor-pointer border-l-2 border-l-primary -ml-[2px] pl-[18px]">
+<div class="w-8 shrink-0">
+<input class="h-4 w-4 bg-transparent border-text-secondary text-primary focus:ring-0 focus:ring-offset-0 rounded-none cursor-pointer" type="checkbox"/>
+</div>
+<div class="flex-1 min-w-[200px] flex items-center gap-3">
+<span class="material-symbols-outlined text-text-secondary">css</span>
+<span class="text-sm font-medium text-white">style.css</span>
+</div>
+<div class="w-32 text-xs font-mono text-text-secondary">-rw-r--r--</div>
+<div class="w-24 text-xs font-mono text-text-secondary">www-data</div>
+<div class="w-32 text-xs font-mono text-text-secondary">Nov 02 09:18</div>
+<div class="w-24 text-right text-xs font-mono text-text-secondary">8.4 KB</div>
+<div class="w-8 flex justify-center">
+<button class="text-text-secondary hover:text-white">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Row: File -->
+<div class="flex items-center border-b border-border-subtle hover:bg-surface-hover h-12 px-4 group cursor-pointer transition-colors">
+<div class="w-8 shrink-0">
+<input class="h-4 w-4 bg-transparent border-text-secondary text-primary focus:ring-0 focus:ring-offset-0 rounded-none cursor-pointer opacity-0 group-hover:opacity-100" type="checkbox"/>
+</div>
+<div class="flex-1 min-w-[200px] flex items-center gap-3">
+<span class="material-symbols-outlined text-text-secondary">javascript</span>
+<span class="text-sm font-medium text-white">app.js</span>
+</div>
+<div class="w-32 text-xs font-mono text-text-secondary">-rw-r--r--</div>
+<div class="w-24 text-xs font-mono text-text-secondary">www-data</div>
+<div class="w-32 text-xs font-mono text-text-secondary">Oct 28 14:22</div>
+<div class="w-24 text-right text-xs font-mono text-text-secondary">42.1 KB</div>
+<div class="w-8 flex justify-center">
+<button class="text-text-secondary hover:text-white opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Row: File -->
+<div class="flex items-center border-b border-border-subtle hover:bg-surface-hover h-12 px-4 group cursor-pointer transition-colors">
+<div class="w-8 shrink-0">
+<input class="h-4 w-4 bg-transparent border-text-secondary text-primary focus:ring-0 focus:ring-offset-0 rounded-none cursor-pointer opacity-0 group-hover:opacity-100" type="checkbox"/>
+</div>
+<div class="flex-1 min-w-[200px] flex items-center gap-3">
+<span class="material-symbols-outlined text-text-secondary">data_object</span>
+<span class="text-sm font-medium text-white">config.json</span>
+</div>
+<div class="w-32 text-xs font-mono text-text-secondary">-r--------</div>
+<div class="w-24 text-xs font-mono text-text-secondary">root</div>
+<div class="w-32 text-xs font-mono text-text-secondary">Sep 15 08:00</div>
+<div class="w-24 text-right text-xs font-mono text-text-secondary">2.1 KB</div>
+<div class="w-8 flex justify-center">
+<button class="text-text-secondary hover:text-white opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Row: File -->
+<div class="flex items-center border-b border-border-subtle hover:bg-surface-hover h-12 px-4 group cursor-pointer transition-colors">
+<div class="w-8 shrink-0">
+<input class="h-4 w-4 bg-transparent border-text-secondary text-primary focus:ring-0 focus:ring-offset-0 rounded-none cursor-pointer opacity-0 group-hover:opacity-100" type="checkbox"/>
+</div>
+<div class="flex-1 min-w-[200px] flex items-center gap-3">
+<span class="material-symbols-outlined text-text-secondary">image</span>
+<span class="text-sm font-medium text-white">logo.svg</span>
+</div>
+<div class="w-32 text-xs font-mono text-text-secondary">-rw-r--r--</div>
+<div class="w-24 text-xs font-mono text-text-secondary">www-data</div>
+<div class="w-32 text-xs font-mono text-text-secondary">Aug 12 11:45</div>
+<div class="w-24 text-right text-xs font-mono text-text-secondary">1.8 KB</div>
+<div class="w-8 flex justify-center">
+<button class="text-text-secondary hover:text-white opacity-0 group-hover:opacity-100">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Footer / Status Bar -->
+<div class="h-8 border-t border-border-subtle bg-background-dark flex items-center justify-between px-4 text-xs font-mono text-text-secondary shrink-0">
+<span>6 items selected</span>
+<span>Total: 72.6 KB</span>
+</div>
+<!-- Code Editor Modal Overlay -->
+<!-- This is positioned absolutely over the right panel to simulate the modal open state as requested -->
+<div class="absolute inset-0 z-10 bg-black/70 flex items-center justify-center p-8 backdrop-blur-sm">
+<div class="bg-surface w-full max-w-4xl h-[600px] border border-border-subtle shadow-2xl flex flex-col">
+<!-- Modal Header -->
+<div class="h-12 bg-surface border-b border-border-subtle flex items-center justify-between px-4 shrink-0">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-text-secondary">css</span>
+<span class="text-sm font-semibold text-white font-mono">style.css</span>
+<span class="text-xs text-text-secondary px-2 py-0.5 border border-border-subtle">Read-Only</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-text-secondary hover:text-white">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+</button>
+<button class="text-text-secondary hover:text-white">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+</div>
+<!-- Editor Content -->
+<div class="flex-1 flex overflow-hidden font-mono text-sm bg-[#1e1e1e]">
+<!-- Line Numbers -->
+<div class="w-12 bg-[#1e1e1e] border-r border-border-subtle text-text-secondary/50 text-right pr-3 py-4 select-none">
+                                    1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15
+                                </div>
+<!-- Code Area -->
+<div class="flex-1 p-4 overflow-auto text-text-secondary">
+<p><span class="text-[#ff7b72]">body</span> {</p>
+<p class="pl-4"><span class="text-[#79c0ff]">background-color</span>: <span class="text-[#a5d6ff]">#161616</span>;</p>
+<p class="pl-4"><span class="text-[#79c0ff]">color</span>: <span class="text-[#a5d6ff]">#f4f4f4</span>;</p>
+<p class="pl-4"><span class="text-[#79c0ff]">font-family</span>: <span class="text-[#a5d6ff]">'IBM Plex Sans'</span>, <span class="text-[#a5d6ff]">sans-serif</span>;</p>
+<p>}</p>
+<br/>
+<p><span class="text-[#8b949e]">/* Dashboard Grid Layout */</span></p>
+<p><span class="text-[#ff7b72]">.dashboard-grid</span> {</p>
+<p class="pl-4"><span class="text-[#79c0ff]">display</span>: <span class="text-[#a5d6ff]">grid</span>;</p>
+<p class="pl-4"><span class="text-[#79c0ff]">grid-template-columns</span>: <span class="text-[#79c0ff]">repeat</span>(<span class="text-[#79c0ff]">16</span>, <span class="text-[#a5d6ff]">1fr</span>);</p>
+<p class="pl-4"><span class="text-[#79c0ff]">gap</span>: <span class="text-[#a5d6ff]">1rem</span>;</p>
+<p class="pl-4"><span class="text-[#79c0ff]">padding</span>: <span class="text-[#a5d6ff]">2rem</span>;</p>
+<p>}</p>
+<br/>
+<p><span class="text-[#ff7b72]">.card</span> {</p>
+<p class="pl-4"><span class="text-[#79c0ff]">background</span>: <span class="text-[#a5d6ff]">var(--surface-01)</span>;</p>
+<p class="pl-4"><span class="text-[#79c0ff]">border</span>: <span class="text-[#a5d6ff]">1px solid var(--border-subtle)</span>;</p>
+<span class="w-0.5 h-5 bg-primary animate-pulse inline-block align-middle ml-1"></span>
+</div>
+</div>
+<!-- Modal Footer -->
+<div class="h-16 bg-surface border-t border-border-subtle flex items-center justify-end px-4 gap-4 shrink-0">
+<button class="h-10 px-6 text-sm font-medium text-white bg-transparent hover:bg-surface-hover border border-primary transition-colors">
+                                    Cancel
+                                </button>
+<button class="h-10 px-6 text-sm font-medium text-white bg-primary hover:bg-blue-600 border border-transparent transition-colors shadow-sm">
+                                    Save Changes
+                                </button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

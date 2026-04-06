@@ -1,0 +1,28 @@
+{
+  "name": "reverz-studio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "dev:rust": "powershell -ExecutionPolicy Bypass -File scripts/dev-rust.ps1",
+    "build:rust": "cargo build --release --manifest-path rust/src/Cargo.toml",
+    "start:rust": "powershell -ExecutionPolicy Bypass -File scripts/start-rust.ps1",
+    "check:rust:no-clone": "powershell -ExecutionPolicy Bypass -File scripts/check-rust-no-clone.ps1",
+    "build:wasm": "wasm-pack build rust/wasm-auth --target web --out-dir ../../public/wasm --out-name auth-proof",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@sentry/nextjs": "^10.42.0",
+    "next": "^15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.7.0"
+  }
+}

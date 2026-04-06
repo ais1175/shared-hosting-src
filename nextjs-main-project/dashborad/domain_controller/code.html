@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Carbon Enterprise Hosting - Domain Controller</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;600&amp;family=IBM+Plex+Mono:wght@400;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "carbon-bg": "#161616",
+                        "carbon-layer-01": "#262626",
+                        "carbon-layer-hover": "#393939",
+                        "carbon-border": "#525252",
+                        "carbon-text-primary": "#F4F4F4",
+                        "carbon-text-secondary": "#C6C6C6",
+                        "carbon-blue": "#0F62FE",
+                        "carbon-green": "#42BE65",
+                        "carbon-yellow": "#F1C21B",
+                        "carbon-red": "#FA4D56",
+                    },
+                    fontFamily: {
+                        sans: ['"IBM Plex Sans"', 'sans-serif'],
+                        mono: ['"IBM Plex Mono"', 'monospace'],
+                    },
+                    spacing: {
+                        'layout-xs': '8px',
+                        'layout-sm': '16px',
+                        'layout-md': '24px',
+                        'layout-lg': '32px',
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Scrollbar for that terminal feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+            background: #262626;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #525252;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6f6f6f;
+        }
+        /* Remove default focus ring and add Carbon style focus */
+        *:focus-visible {
+            outline: 2px solid white;
+            outline-offset: -2px;
+        }
+    </style>
+</head>
+<body class="bg-carbon-bg text-carbon-text-primary font-sans antialiased overflow-hidden h-screen flex flex-col">
+<!-- Global Header -->
+<header class="h-12 bg-carbon-bg border-b border-carbon-border flex items-center justify-between px-4 shrink-0 z-50">
+<div class="flex items-center gap-4">
+<button class="text-white hover:bg-carbon-layer-hover p-1">
+<span class="material-symbols-outlined text-[20px]">menu</span>
+</button>
+<div class="flex items-center gap-2">
+<span class="text-carbon-text-primary font-semibold text-[16px] tracking-tight">Carbon Enterprise</span>
+<span class="text-carbon-text-secondary text-xs px-1 border border-carbon-border">v2.4.0</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-white hover:bg-carbon-layer-hover p-2 relative group">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<!-- Notification Dot -->
+<span class="absolute top-2 right-2 w-2 h-2 bg-carbon-blue rounded-full"></span>
+</button>
+<div class="h-8 w-8 bg-carbon-layer-01 border border-carbon-border flex items-center justify-center text-xs font-mono font-bold cursor-pointer hover:bg-carbon-layer-hover">
+                AD
+            </div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- Side Navigation -->
+<nav class="w-12 lg:w-64 bg-carbon-layer-01 border-r border-carbon-border flex flex-col justify-between shrink-0 transition-all duration-300">
+<div class="flex flex-col">
+<!-- Nav Item: Dashboard -->
+<a class="h-12 flex items-center px-0 lg:px-0 hover:bg-carbon-layer-hover group relative border-l-4 border-transparent" href="#">
+<div class="w-12 h-12 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-carbon-text-secondary group-hover:text-white">dashboard</span>
+</div>
+<span class="hidden lg:block text-sm font-medium text-carbon-text-secondary group-hover:text-white">Overview</span>
+</a>
+<!-- Nav Item: Instances -->
+<a class="h-12 flex items-center px-0 lg:px-0 hover:bg-carbon-layer-hover group relative border-l-4 border-transparent" href="#">
+<div class="w-12 h-12 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-carbon-text-secondary group-hover:text-white">dns</span>
+</div>
+<span class="hidden lg:block text-sm font-medium text-carbon-text-secondary group-hover:text-white">Instances</span>
+</a>
+<!-- Nav Item: Domains (Active) -->
+<a class="h-12 flex items-center px-0 lg:px-0 bg-carbon-layer-hover group relative border-l-4 border-carbon-blue" href="#">
+<div class="w-12 h-12 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-white">language</span>
+</div>
+<span class="hidden lg:block text-sm font-medium text-white">Domains</span>
+</a>
+<!-- Nav Item: Database -->
+<a class="h-12 flex items-center px-0 lg:px-0 hover:bg-carbon-layer-hover group relative border-l-4 border-transparent" href="#">
+<div class="w-12 h-12 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-carbon-text-secondary group-hover:text-white">database</span>
+</div>
+<span class="hidden lg:block text-sm font-medium text-carbon-text-secondary group-hover:text-white">Databases</span>
+</a>
+<!-- Nav Item: Files -->
+<a class="h-12 flex items-center px-0 lg:px-0 hover:bg-carbon-layer-hover group relative border-l-4 border-transparent" href="#">
+<div class="w-12 h-12 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-carbon-text-secondary group-hover:text-white">folder</span>
+</div>
+<span class="hidden lg:block text-sm font-medium text-carbon-text-secondary group-hover:text-white">Files</span>
+</a>
+</div>
+<div class="p-4 hidden lg:block">
+<div class="text-xs text-carbon-text-secondary mb-2 font-mono uppercase tracking-widest">System Health</div>
+<div class="flex items-center gap-2 mb-1">
+<div class="w-2 h-2 rounded-full bg-carbon-green"></div>
+<span class="text-xs text-white">All Systems Nominal</span>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex overflow-hidden">
+<!-- Left Panel: Domain List (30%) -->
+<aside class="w-[30%] min-w-[300px] border-r border-carbon-border bg-carbon-bg flex flex-col">
+<div class="h-12 border-b border-carbon-border flex items-center px-4 bg-carbon-bg sticky top-0 z-10">
+<h2 class="text-lg font-light text-carbon-text-primary">Domain Controller</h2>
+</div>
+<!-- Toolbar -->
+<div class="p-4 border-b border-carbon-border bg-carbon-bg">
+<div class="relative mb-4">
+<input class="w-full bg-carbon-layer-01 border-b border-carbon-border text-white text-sm px-3 py-3 focus:outline-none focus:border-white placeholder-carbon-text-secondary" placeholder="Search domains..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-3 text-carbon-text-secondary text-[20px]">search</span>
+</div>
+<button class="w-full bg-carbon-blue text-white h-10 px-4 flex items-center justify-between hover:bg-[#0353e9] active:bg-[#002d9c] transition-colors">
+<span class="text-sm font-medium">Add Domain</span>
+<span class="material-symbols-outlined text-[16px]">add</span>
+</button>
+</div>
+<!-- List -->
+<div class="flex-1 overflow-y-auto">
+<ul class="flex flex-col">
+<!-- Item 1: Active -->
+<li class="group cursor-pointer bg-carbon-layer-01 border-l-4 border-white border-b border-carbon-border p-4 hover:bg-carbon-layer-hover transition-colors">
+<div class="flex justify-between items-start mb-1">
+<span class="font-mono text-sm text-white font-semibold">production-api.carbon.host</span>
+<span class="w-2 h-2 bg-carbon-green rounded-full mt-1.5" title="Active"></span>
+</div>
+<div class="flex items-center gap-2 text-xs text-carbon-text-secondary font-mono">
+<span>DNS: Route53</span>
+<span class="text-carbon-border">|</span>
+<span>SSL: Auto</span>
+</div>
+</li>
+<!-- Item 2 -->
+<li class="group cursor-pointer bg-carbon-bg border-l-4 border-transparent border-b border-carbon-border p-4 hover:bg-carbon-layer-hover hover:border-carbon-text-secondary transition-colors">
+<div class="flex justify-between items-start mb-1">
+<span class="font-mono text-sm text-carbon-text-secondary group-hover:text-white">staging.carbon.host</span>
+<span class="w-2 h-2 bg-carbon-green rounded-full mt-1.5 opacity-50"></span>
+</div>
+<div class="flex items-center gap-2 text-xs text-carbon-text-secondary font-mono opacity-70">
+<span>DNS: Route53</span>
+<span class="text-carbon-border">|</span>
+<span>SSL: Manual</span>
+</div>
+</li>
+<!-- Item 3 -->
+<li class="group cursor-pointer bg-carbon-bg border-l-4 border-transparent border-b border-carbon-border p-4 hover:bg-carbon-layer-hover hover:border-carbon-text-secondary transition-colors">
+<div class="flex justify-between items-start mb-1">
+<span class="font-mono text-sm text-carbon-text-secondary group-hover:text-white">internal-tools.io</span>
+<span class="w-2 h-2 bg-carbon-yellow rounded-full mt-1.5" title="Propagating"></span>
+</div>
+<div class="flex items-center gap-2 text-xs text-carbon-text-secondary font-mono opacity-70">
+<span>DNS: Cloudflare</span>
+<span class="text-carbon-border">|</span>
+<span>SSL: Pending</span>
+</div>
+</li>
+<!-- Item 4 -->
+<li class="group cursor-pointer bg-carbon-bg border-l-4 border-transparent border-b border-carbon-border p-4 hover:bg-carbon-layer-hover hover:border-carbon-text-secondary transition-colors">
+<div class="flex justify-between items-start mb-1">
+<span class="font-mono text-sm text-carbon-text-secondary group-hover:text-white">legacy-system.net</span>
+<span class="w-2 h-2 bg-carbon-red rounded-full mt-1.5" title="Error"></span>
+</div>
+<div class="flex items-center gap-2 text-xs text-carbon-text-secondary font-mono opacity-70">
+<span>DNS: Local</span>
+<span class="text-carbon-border">|</span>
+<span>SSL: Expired</span>
+</div>
+</li>
+</ul>
+</div>
+</aside>
+<!-- Right Panel: DNS Management (70%) -->
+<section class="flex-1 bg-carbon-bg flex flex-col h-full overflow-hidden relative">
+<!-- Background Grid Pattern -->
+<div class="absolute inset-0 pointer-events-none opacity-5 z-0" data-alt="Abstract subtle grid pattern representing technical precision" style="background-image: linear-gradient(#525252 1px, transparent 1px), linear-gradient(90deg, #525252 1px, transparent 1px); background-size: 20px 20px;">
+</div>
+<!-- Header -->
+<div class="h-auto min-h-[120px] bg-carbon-layer-01 border-b border-carbon-border p-6 flex flex-col justify-between shrink-0 relative z-10">
+<div class="flex justify-between items-start">
+<div>
+<div class="flex items-center gap-3 mb-2">
+<h1 class="text-2xl font-light text-white">production-api.carbon.host</h1>
+<span class="px-2 py-0.5 text-xs font-mono bg-carbon-green/20 text-carbon-green border border-carbon-green/30">ACTIVE</span>
+</div>
+<p class="text-sm text-carbon-text-secondary max-w-xl">
+                                Primary ingress for production API traffic. Managed via Route53.
+                            </p>
+</div>
+<div class="flex gap-2">
+<button class="bg-transparent border border-carbon-border text-white px-4 h-10 hover:bg-carbon-layer-hover text-sm">
+                                Export Zone
+                            </button>
+<button class="bg-carbon-red text-white px-4 h-10 hover:bg-[#da1e28] text-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">delete</span>
+                                Delete
+                            </button>
+</div>
+</div>
+<div class="flex items-center gap-8 mt-6">
+<div class="flex flex-col gap-1">
+<span class="text-xs uppercase tracking-wider text-carbon-text-secondary font-semibold">SSL Status</span>
+<div class="flex items-center gap-2 text-sm text-white">
+<span class="material-symbols-outlined text-carbon-green text-[16px]">lock</span>
+                                Secured (Auto-renew)
+                            </div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs uppercase tracking-wider text-carbon-text-secondary font-semibold">Nameservers</span>
+<div class="font-mono text-sm text-white">ns-120.awsdns-15.org</div>
+</div>
+<div class="flex flex-col gap-1">
+<span class="text-xs uppercase tracking-wider text-carbon-text-secondary font-semibold">TTL Default</span>
+<div class="font-mono text-sm text-white">3600s</div>
+</div>
+</div>
+</div>
+<!-- DNS Table -->
+<div class="flex-1 overflow-auto relative z-10">
+<table class="w-full text-left border-collapse">
+<thead class="bg-carbon-layer-01 sticky top-0 z-20 shadow-sm shadow-black/20">
+<tr>
+<th class="p-4 border-b border-carbon-border text-xs uppercase tracking-wider font-semibold text-carbon-text-secondary w-24">Type</th>
+<th class="p-4 border-b border-carbon-border text-xs uppercase tracking-wider font-semibold text-carbon-text-secondary w-1/4">Name</th>
+<th class="p-4 border-b border-carbon-border text-xs uppercase tracking-wider font-semibold text-carbon-text-secondary w-1/3">Value</th>
+<th class="p-4 border-b border-carbon-border text-xs uppercase tracking-wider font-semibold text-carbon-text-secondary w-24">TTL</th>
+<th class="p-4 border-b border-carbon-border text-xs uppercase tracking-wider font-semibold text-carbon-text-secondary text-right w-24">Actions</th>
+</tr>
+</thead>
+<tbody class="font-mono text-sm">
+<!-- Row 1: A Record -->
+<tr class="group hover:bg-carbon-layer-hover transition-colors border-b border-carbon-border bg-carbon-bg">
+<td class="p-4 align-middle">
+<span class="inline-block px-2 py-0.5 bg-carbon-layer-01 border border-carbon-border text-carbon-text-secondary text-[10px] font-bold">A</span>
+</td>
+<td class="p-4 align-middle text-white group-hover:text-carbon-blue transition-colors cursor-pointer">
+                                    @
+                                </td>
+<td class="p-0 align-middle">
+<input class="w-full h-full bg-transparent border-none text-carbon-text-primary px-4 py-4 focus:bg-carbon-layer-01 focus:ring-0 cursor-text font-mono" type="text" value="192.168.1.45"/>
+</td>
+<td class="p-4 align-middle text-carbon-text-secondary">
+                                    3600
+                                </td>
+<td class="p-4 align-middle text-right">
+<button class="text-carbon-text-secondary hover:text-white p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[16px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: CNAME -->
+<tr class="group hover:bg-carbon-layer-hover transition-colors border-b border-carbon-border bg-carbon-layer-01">
+<td class="p-4 align-middle">
+<span class="inline-block px-2 py-0.5 bg-carbon-layer-01 border border-carbon-border text-carbon-text-secondary text-[10px] font-bold">CNAME</span>
+</td>
+<td class="p-4 align-middle text-white group-hover:text-carbon-blue transition-colors cursor-pointer">
+                                    www
+                                </td>
+<td class="p-0 align-middle">
+<input class="w-full h-full bg-transparent border-none text-carbon-text-primary px-4 py-4 focus:bg-carbon-layer-01 focus:ring-0 cursor-text font-mono" type="text" value="ingress-lb.carbon.host"/>
+</td>
+<td class="p-4 align-middle text-carbon-text-secondary">
+                                    3600
+                                </td>
+<td class="p-4 align-middle text-right">
+<button class="text-carbon-text-secondary hover:text-white p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[16px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3: MX -->
+<tr class="group hover:bg-carbon-layer-hover transition-colors border-b border-carbon-border bg-carbon-bg">
+<td class="p-4 align-middle">
+<span class="inline-block px-2 py-0.5 bg-carbon-layer-01 border border-carbon-border text-carbon-text-secondary text-[10px] font-bold">MX</span>
+</td>
+<td class="p-4 align-middle text-white group-hover:text-carbon-blue transition-colors cursor-pointer">
+                                    @
+                                </td>
+<td class="p-0 align-middle">
+<input class="w-full h-full bg-transparent border-none text-carbon-text-primary px-4 py-4 focus:bg-carbon-layer-01 focus:ring-0 cursor-text font-mono" type="text" value="mail.carbon.host"/>
+</td>
+<td class="p-4 align-middle text-carbon-text-secondary">
+                                    14400
+                                </td>
+<td class="p-4 align-middle text-right">
+<button class="text-carbon-text-secondary hover:text-white p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[16px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4: TXT -->
+<tr class="group hover:bg-carbon-layer-hover transition-colors border-b border-carbon-border bg-carbon-layer-01">
+<td class="p-4 align-middle">
+<span class="inline-block px-2 py-0.5 bg-carbon-layer-01 border border-carbon-border text-carbon-text-secondary text-[10px] font-bold">TXT</span>
+</td>
+<td class="p-4 align-middle text-white group-hover:text-carbon-blue transition-colors cursor-pointer">
+                                    @
+                                </td>
+<td class="p-0 align-middle">
+<input class="w-full h-full bg-transparent border-none text-carbon-text-primary px-4 py-4 focus:bg-carbon-layer-01 focus:ring-0 cursor-text font-mono text-ellipsis" type="text" value="v=spf1 include:_spf.google.com ~all"/>
+</td>
+<td class="p-4 align-middle text-carbon-text-secondary">
+                                    3600
+                                </td>
+<td class="p-4 align-middle text-right">
+<button class="text-carbon-text-secondary hover:text-white p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[16px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 5: A -->
+<tr class="group hover:bg-carbon-layer-hover transition-colors border-b border-carbon-border bg-carbon-bg">
+<td class="p-4 align-middle">
+<span class="inline-block px-2 py-0.5 bg-carbon-layer-01 border border-carbon-border text-carbon-text-secondary text-[10px] font-bold">A</span>
+</td>
+<td class="p-4 align-middle text-white group-hover:text-carbon-blue transition-colors cursor-pointer">
+                                    api-v1
+                                </td>
+<td class="p-0 align-middle">
+<input class="w-full h-full bg-transparent border-none text-carbon-text-primary px-4 py-4 focus:bg-carbon-layer-01 focus:ring-0 cursor-text font-mono" type="text" value="192.168.1.50"/>
+</td>
+<td class="p-4 align-middle text-carbon-text-secondary">
+                                    300
+                                </td>
+<td class="p-4 align-middle text-right">
+<button class="text-carbon-text-secondary hover:text-white p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-[16px]">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Ghost Row (Add New) -->
+<tr class="group bg-carbon-bg/50 hover:bg-carbon-layer-hover transition-colors border-b border-dashed border-carbon-border">
+<td class="p-4 align-middle">
+<div class="relative">
+<select class="appearance-none bg-carbon-layer-01 border border-carbon-border text-white text-xs py-1 px-2 pr-6 font-mono focus:outline-none focus:border-white cursor-pointer">
+<option>A</option>
+<option>CNAME</option>
+<option>MX</option>
+<option>TXT</option>
+</select>
+<span class="material-symbols-outlined absolute right-1 top-1 text-[14px] pointer-events-none text-carbon-text-secondary">arrow_drop_down</span>
+</div>
+</td>
+<td class="p-0 align-middle">
+<input class="w-full h-full bg-transparent border-none text-white px-4 py-4 focus:bg-carbon-layer-01 focus:ring-0 placeholder-carbon-text-secondary/50 font-mono italic" placeholder="Name" type="text"/>
+</td>
+<td class="p-0 align-middle">
+<input class="w-full h-full bg-transparent border-none text-white px-4 py-4 focus:bg-carbon-layer-01 focus:ring-0 placeholder-carbon-text-secondary/50 font-mono italic" placeholder="Value (IP or Domain)" type="text"/>
+</td>
+<td class="p-0 align-middle">
+<input class="w-full h-full bg-transparent border-none text-white px-4 py-4 focus:bg-carbon-layer-01 focus:ring-0 placeholder-carbon-text-secondary/50 font-mono italic" placeholder="TTL" type="text"/>
+</td>
+<td class="p-4 align-middle text-right">
+<button class="text-carbon-blue hover:text-white font-medium text-xs uppercase tracking-wide">
+                                        Add
+                                    </button>
+</td>
+</tr>
+</tbody>
+</table>
+<!-- Empty space filler -->
+<div class="h-32"></div>
+</div>
+<!-- Footer Status Bar -->
+<div class="bg-carbon-layer-01 border-t border-carbon-border px-4 h-8 flex items-center justify-between text-xs text-carbon-text-secondary font-mono sticky bottom-0 z-30">
+<div>
+<span>Zone ID: Z238194XJ9</span>
+<span class="mx-2">|</span>
+<span>Last Sync: 14:02 UTC</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-1.5 h-1.5 bg-carbon-green rounded-full animate-pulse"></span>
+<span>Propagation Complete</span>
+</div>
+</div>
+</section>
+</main>
+</div>
+</body></html>
